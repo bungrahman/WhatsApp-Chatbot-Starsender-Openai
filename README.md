@@ -105,4 +105,4 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 ---
 
-Dengan deskripsi ini, pengguna GitHub dapat memahami tujuan, fitur, dan cara kerja kode Anda dengan jelas. Anda juga dapat menambahkan bagian **Instalasi** atau **Persyaratan** jika diperlukan.
+
