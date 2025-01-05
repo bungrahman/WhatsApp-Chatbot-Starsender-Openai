@@ -1,4 +1,11 @@
 <?php
+
+// Jika diakses melalui browser (metode GET), redirect ke domain utama
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: https://domainku.com");
+    exit(); // Hentikan eksekusi script
+}
+
 // Token API dari Starsender
 $starsenderApiKey = 'YOUR_STARSENDER_API_KEY';
 
