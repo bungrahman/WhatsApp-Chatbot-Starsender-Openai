@@ -75,16 +75,22 @@ if (isset($data->message) && isset($data->from)) {
 /**
  * Fungsi untuk memeriksa kata kunci dan memberikan respons
  *
- * @param string $message
- * @return string|null
+ * @param string $message Pesan dari pengguna
+ * @return string|null Respons yang sesuai atau null jika tidak ada kata kunci yang cocok
  */
 function getResponseFromKeywords($message) {
     // Baca file JSON
     $responses = json_decode(file_get_contents('responses.json'), true);
 
+    // Urutkan kata kunci dari yang terpanjang ke terpendek
+    uksort($responses["kata_kunci"], function($a, $b) {
+        return strlen($b) - strlen($a);
+    });
+
     // Cek apakah pesan mengandung kata kunci
     foreach ($responses["kata_kunci"] as $keyword => $response) {
-        if (stripos($message, $keyword) !== false) {
+        // Gunakan regex untuk mencocokkan frasa lengkap
+        if (preg_match("/\b" . preg_quote($keyword, '/') . "\b/i", $message)) {
             // Jika kata kunci ditemukan, ganti placeholder (jika ada)
             if (strpos($response, "{{tanggal}}") !== false) {
                 $response = str_replace("{{tanggal}}", date("Y-m-d"), $response);
