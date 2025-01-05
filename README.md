@@ -85,8 +85,8 @@ Repository ini berisi kode PHP untuk membuat webhook yang mengintegrasikan **Ope
 ## Contoh Respons
 
 - **Pesan dengan Kata Kunci**:
-  - Pengguna: "Apa kabar?"
-  - Bot: "Saya baik-baik saja, terima kasih!"
+  - Pengguna: "info"
+  - Bot: "Ini adalah bot WhatsApp yang dibuat oleh bungrahman."
 
 - **Pesan Tanpa Kata Kunci**:
   - Pengguna: "Ceritakan tentang AI."
