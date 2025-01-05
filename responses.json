@@ -1,0 +1,15 @@
+{
+    "kata_kunci": {
+        "hai": "Halo! Ada yang bisa saya bantu?",
+        "halo": "Halo! Ada yang bisa saya bantu?",
+        "info": "Ini adalah bot WhatsApp yang dibuat oleh bungrahman. ",
+        "bungrahman": "Dia Adalah Seorang Website Developer yang berdomisili di Batam",
+        "wihgi": "Dia Adalah Seorang Website Developer yang berdomisili di Jogja",
+        "info tanggal": "Tanggal saat ini adalah: {{tanggal}}",
+        "link": "Berikut adalah link yang Anda minta: https://jejakkreasi.com",
+        "help": "Anda bisa menanyakan apa saja, saya akan mencoba membantu.",
+        "babi": "Kalimat tersebut dilarang",
+        "anjing": "Kalimat tersebut dilarang",
+        "terima kasih": "Sama-sama! Senang bisa membantu."
+    }
+}
