@@ -65,7 +65,7 @@ Repository ini berisi kode PHP untuk membuat webhook yang mengintegrasikan **Ope
 
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/username/repository-name.git
+   git clone https://github.com/bungrahman/WhatsApp-Chatbot-Starsender-Openai.git
    ```
 
 2. **Konfigurasi**:
