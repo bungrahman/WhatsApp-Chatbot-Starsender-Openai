@@ -32,19 +32,52 @@ if (isset($data->message) && isset($data->from)) {
 
     // Periksa jika riwayat telah mencapai batas 10 pesan
     if (count($history) >= 10) {
-        $notification = "Riwayat percakapan yang terkait dengan percakapan sebelumnya telah mencapai batas maksimal 10 pesan. kita akan memuali percakapan baru.";
+        $notification = "Riwayat percakapan yang terkait dengan percakapan sebelumnya telah mencapai batas maksimal 10 pesan. Kita akan memulai percakapan baru.";
         sendMessage($from, $notification, $starsenderApiKey);
-        
-        // Delete the history file
+
+        // Hapus file riwayat
         $filename = "history/" . basename($from) . ".json";
         if (file_exists($filename)) {
             if (!unlink($filename)) {
                 error_log("Gagal menghapus file riwayat untuk {$from}");
             }
         }
-        
-        // Reset history array
+
+        // Reset riwayat
         $history = [];
+    }
+
+    // Cek apakah pesan mengandung "butuh bantuan"
+    if (stripos($message, 'butuh bantuan') !== false) {
+        // Kirim respons khusus
+        $responseMessage = "Baik, tim kami akan segera menghubungi. Untuk fast response, silahkan hubungi 085355341334. Apakah Anda ingin menggunakan bot? Balas dengan ketik *chatbot*.";
+        sendMessage($from, $responseMessage, $starsenderApiKey);
+
+        // Hentikan auto-reply dengan menambahkan flag ke riwayat
+        $history[] = ["role" => "assistant", "content" => "auto-reply-disabled"];
+        saveConversationHistory($from, $history);
+        exit(); // Hentikan eksekusi script
+    }
+
+    // Cek apakah pesan adalah "chatbot"
+    if (trim(strtolower($message)) === 'chatbot') {
+        // Lanjutkan auto-reply dengan menghapus flag
+        $history = array_filter($history, function($entry) {
+            return $entry['content'] !== 'auto-reply-disabled';
+        });
+        saveConversationHistory($from, $history);
+
+        // Kirim konfirmasi
+        $responseMessage = "Auto-reply diaktifkan kembali. Silakan lanjutkan percakapan dengan bot.";
+        sendMessage($from, $responseMessage, $starsenderApiKey);
+        exit(); // Hentikan eksekusi script
+    }
+
+    // Cek apakah auto-reply dinonaktifkan
+    $isAutoReplyDisabled = in_array(["role" => "assistant", "content" => "auto-reply-disabled"], $history);
+    if ($isAutoReplyDisabled) {
+        // Jika auto-reply dinonaktifkan, hentikan pemrosesan
+        exit();
     }
 
     // Tambahkan pesan pengguna ke riwayat
@@ -237,5 +270,6 @@ function sendMessage($to, $message, $apiKey) {
     return;
 }
 
-echo "Webhook berhasil diproses.";
+echo "Endpoint Webhook.";
+?>
 ?>
